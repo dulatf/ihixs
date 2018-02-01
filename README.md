@@ -1,4 +1,4 @@
-# ihixs
+# ihixs 2 - Inclusive Higgs Cross Sections
 Inclusive Higgs cross sections.
 
 # General information
@@ -41,3 +41,6 @@ iHixs requires a copiler with C++11 support (e.g. gcc >= 4.8)
 - Falko Dulat
 - Achilleas Lazopoulos
 - Bernhard Mistlberger
+
+
+Made with :mortar_board: in Geneva, Menlo Park and Zurich.
