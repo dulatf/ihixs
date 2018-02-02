@@ -1,0 +1,15 @@
+/home/dulatf/ihixs/build/CMakeFiles/rebuild_cache.dir
+/home/dulatf/ihixs/build/CMakeFiles/ihixs.dir
+/home/dulatf/ihixs/build/CMakeFiles/edit_cache.dir
+/home/dulatf/ihixs/build/src/chaplin/CMakeFiles/rebuild_cache.dir
+/home/dulatf/ihixs/build/src/chaplin/CMakeFiles/cppchaplin.dir
+/home/dulatf/ihixs/build/src/chaplin/CMakeFiles/edit_cache.dir
+/home/dulatf/ihixs/build/src/higgs/CMakeFiles/rebuild_cache.dir
+/home/dulatf/ihixs/build/src/higgs/CMakeFiles/higgs_lib.dir
+/home/dulatf/ihixs/build/src/higgs/CMakeFiles/edit_cache.dir
+/home/dulatf/ihixs/build/src/tools/CMakeFiles/rebuild_cache.dir
+/home/dulatf/ihixs/build/src/tools/CMakeFiles/tools.dir
+/home/dulatf/ihixs/build/src/tools/CMakeFiles/edit_cache.dir
+/home/dulatf/ihixs/build/src/models/CMakeFiles/rebuild_cache.dir
+/home/dulatf/ihixs/build/src/models/CMakeFiles/models.dir
+/home/dulatf/ihixs/build/src/models/CMakeFiles/edit_cache.dir
