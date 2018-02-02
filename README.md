@@ -1,5 +1,6 @@
 # iHixs 2 - Inclusive Higgs Cross Sections 
 Inclusive Higgs cross sections.
+[Dowload](https://github.com/dulatf/ihixs/releases/latest)
 
 ## General information
 iHixs is a C++ code for computing inclusive Higgs boson production cross sections in gluon fusion.
