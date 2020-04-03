@@ -17,6 +17,8 @@ public:
     SingleDataEntry(const string& key, const string& res, const int& verbose_level);
     SingleDataEntry(const string& key, const int& res, const int& verbose_level);
     SingleDataEntry(const string& key, const double& res, const int& verbose_level);
+    // converting
+    string ConvertDoubleToString(const double & x);
     // printing functions
     string MathematicaFormat();
     string TextFormat();

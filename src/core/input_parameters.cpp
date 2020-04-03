@@ -5,7 +5,9 @@
 
 
 void InputParameters::Configure(const UserInterface& UI) {
+    
     _VI.Configure(UI);
+    
     _tau = pow(UI.giveDouble("m_higgs"), 2.)/pow(UI.giveInt("Etot"), 2.);
     // chosing whether we do single pdf or all pdfs at the same time
     if (UI.giveBool("with_pdf_error"))
@@ -129,4 +131,18 @@ int InputParameters::DetermineQCDPerturbativeOrder(const string& order) {
     cout << "\nFailed to determine int(perturbative order) for input: "
     << order << endl;
     exit(EXIT_FAILURE);
+}
+
+
+
+void InputParametersForThresRes::Configure(const InputParameters & IP){
+    _wc = IP._wc;
+    _prefactor = IP._prefactor;
+    _tau = IP._tau;
+    _mur = IP._mur;
+    _muf = IP._muf;
+    _as_over_pi = IP._as_over_pi;
+    _log_muf_over_mh_sq = IP._log_muf_over_mh_sq;
+    _log_mur_over_muf_sq = IP._log_mur_over_muf_sq;
+
 }

@@ -10,10 +10,13 @@ void VegasArguments::Configure(const UserInterface& UI){
     epsrel = UI.giveDouble("epsrel");
     epsabs = UI.giveDouble("epsabs");
     mineval = UI.giveInt("mineval");
+    
     maxeval = UI.giveInt("maxeval");
     nstart = UI.giveInt("nstart");
     nincrease = UI.giveInt("nincrease");
-    verbose = UI.giveInt("cuba_verbose");}
+    verbose = UI.giveInt("cuba_verbose");
+    
+}
 
 void LuminosityIntegral::set_initial_flavors(){
     bool found=false;

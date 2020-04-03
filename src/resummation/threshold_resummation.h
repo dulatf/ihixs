@@ -14,7 +14,7 @@ using namespace std;
 
 class ThresholdResummation{
 public:
-  ThresholdResummation(const UserInterface& UI, const string &gridDirectory, InputParameters *pInput);
+  ThresholdResummation(const UserInterface& UI, const string &gridDirectory, InputParametersForThresRes *pInput);
   ~ThresholdResummation();
   double ResummationCorrection(unsigned int logOrder, unsigned int matchingOrder, bool pi2Resummation);
 private:
@@ -27,7 +27,7 @@ private:
   complex<double> SudakovExponential(const complex<double> &n, unsigned int lOrd, bool pi2Resummation);
 
   GaussGrid *_theGrid;
-  InputParameters *_input;
+  InputParametersForThresRes *_input;
     
     string _resummation_type;
 };

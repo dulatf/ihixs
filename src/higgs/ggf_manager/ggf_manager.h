@@ -39,7 +39,7 @@ private:
     stringstream data;
     stringstream messages;
     
-    InputParameters* _eft_input;
+    InputParametersForThresRes* _tr_input;
     ResultPair _Higgs_XS;
     int _qcd_perturbative_order_int;
     bool _we_do_mt_expansion;

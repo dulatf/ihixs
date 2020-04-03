@@ -10,10 +10,18 @@ SingleDataEntry::SingleDataEntry() {
     _verbose_level = 2;
 }
 
+string SingleDataEntry::ConvertDoubleToString(const double & x){
+    stringstream res_stream;
+    res_stream << scientific;
+    res_stream << setprecision(8);
+    res_stream << x;
+    return res_stream.str();
+}
 SingleDataEntry::SingleDataEntry(const string& key, const ResultPair& res, const int& verbose_level){
     _key=key;
-    _res=std::to_string(res.val());
-    _err=std::to_string(res.err());
+    
+    _res=ConvertDoubleToString(res.val());
+    _err=ConvertDoubleToString(res.err());
     _val=res;
     _verbose_level = verbose_level;
 }
@@ -33,7 +41,7 @@ SingleDataEntry::SingleDataEntry(const string& key, const int& res, const int& v
 }
 SingleDataEntry::SingleDataEntry(const string& key, const double& res, const int& verbose_level){
     _key=key;
-    _res=to_string(res);
+    _res=ConvertDoubleToString(res);
     _err="";
     _val=ResultPair(res,0.0);
     _verbose_level = verbose_level;
@@ -42,12 +50,15 @@ SingleDataEntry::SingleDataEntry(const string& key, const double& res, const int
 
 string SingleDataEntry::MathematicaFormat(){
     stringstream datastring;
+    datastring << scientific;
+    datastring << setprecision(8);
     datastring<<"\""<<_key<<"\"->"<<_res;
     return datastring.str();
 }
 
 string SingleDataEntry::TextFormat(){
     stringstream datastring;
+    
     if (!(_err==""))
         datastring<<setw(25)<<left<<_key<<" = "<<_res<<" ["<<_err<<"]";
     else

@@ -212,10 +212,16 @@ namespace RES{
   }
 }
 
-ThresholdResummation::ThresholdResummation(const UserInterface &UI, const string &gridDirectory,InputParameters *pInput){
-  _input = pInput;
+ThresholdResummation::ThresholdResummation(
+                        const UserInterface &UI,
+                        const string &gridDirectory,
+                        InputParametersForThresRes *pInput){
+    _input = pInput;
     _resummation_type = UI.giveString("resummation_type");
-  Initialize(UI,gridDirectory);
+
+    cout << __PRETTY_FUNCTION__ << " constructor begins" << endl;
+    Initialize(UI,gridDirectory);
+    cout << __PRETTY_FUNCTION__ << " constructor ends" << endl;
 }
 ThresholdResummation::~ThresholdResummation(){
   if(_theGrid){
@@ -225,8 +231,9 @@ ThresholdResummation::~ThresholdResummation(){
 }
 
 double ThresholdResummation::ResummationCorrection(unsigned int logOrder, unsigned int matchingOrder, bool pi2Resummation){
-  double tau = _input->_tau;
+    double tau = _input->_tau;
   double al = _input->_as_over_pi;
+    
   double ch = Ch(logOrder,false);
   double res = pow(al,2)*_theGrid->DoIntegral([pi2Resummation,tau,logOrder,ch,matchingOrder,this](complex<double> n) -> complex<double>{
     return pow(tau,1.0-n)*(ch*this->SudakovExponential(n,logOrder,pi2Resummation));
@@ -247,7 +254,9 @@ void ThresholdResummation::Initialize(const UserInterface &UI,
     if (UI.giveBool("with_resummation_info")) {
         cout << "[ThresholdResummation]: " << "Initializing grid " << gname << endl;
     }
+    
     _theGrid = new GaussGrid(UI,gridDirectory /*+ "/" */+  gname);
+    cout << "<  finishing initialize  >" << endl;
     if (UI.giveBool("with_resummation_info")) {
         cout << endl << endl;
         cout << "Ch: " <<  Ch(3,false) << endl;
@@ -256,7 +265,9 @@ void ThresholdResummation::Initialize(const UserInterface &UI,
         cout << "Match1: " << MatchingCoefficient(complex<double>{2.500000, 0.306946},1,1) << endl;
         cout << "Match2: " << MatchingCoefficient(complex<double>{2.500000, 0.306946},2,2) << endl;
         cout << "Match3: " << MatchingCoefficient(complex<double>{2.500000, 0.306946},3,3) << endl;
-    }
+    
+        
+        
     //cout << "[ThresholdResummation]: " << RES::r_sudakov(complex<double>(2.5,1.1), .1,0,0, 3) << endl;
     //cout << "[ThresholdResummation] wc|1: " << RES::r_wser_1(0.0, _input->_wc.c().term_of_order(2).val()) << endl;
     //cout << "[ThresholdResummation] wc|2: " << RES::r_wser_2(0.0, _input->_wc.c().term_of_order(2).val(),_input->_wc.c().term_of_order(3).val()) << endl;
@@ -281,6 +292,8 @@ void ThresholdResummation::Initialize(const UserInterface &UI,
     //cout << "Expo = N2LL" << SudakovExponential(complex<double>(2.5,3.4),2,false) << endl;
     //cout << "Expo = N3LL" << SudakovExponential(complex<double>(2.5,3.4),3,false) << endl;
     //cout << "Seri = " << MatchingCoefficient(complex<double>(2.5,3.4),3,3) << endl;
+        }
+    
 }
 
 double ThresholdResummation::Ch(unsigned int ord, bool pi2){

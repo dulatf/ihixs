@@ -36,6 +36,8 @@ void SigmaTerm::CallVegas() {
 }
 
 ostream& operator<<(ostream& stream, const SigmaTerm& st) {
+//    stream << scientific;
+//    stream << setprecision(8);
     stream << setw(28) << left << st._type;
     stream
     << "\t" << st._qcd_result.term_of_order(2)
@@ -43,6 +45,7 @@ ostream& operator<<(ostream& stream, const SigmaTerm& st) {
     << "\t" << st._qcd_result.term_of_order(4)
     << "\t" << st._qcd_result.term_of_order(5)
     << endl;
+    
     return stream;
 }
 

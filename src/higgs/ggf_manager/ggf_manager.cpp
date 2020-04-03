@@ -2,8 +2,10 @@
 #include "src/higgs/ggf_manager/ggf_manager.h"
 
 GgfManager::GgfManager(const UserInterface& UI){
-    
-    _eft_input = NULL;
+    std:scientific;
+    std::cout << setprecision(8);
+    cout << "Check scientific: " << 0.000000304 << " and " << 10203.41234 << endl;
+    _tr_input = NULL;
     mydata.Add("mh",UI.giveDouble("m_higgs"), "silent");
     mydata.Add("Etot",UI.giveInt("Etot"), "silent");
     mydata.Add("PDF set",UI.giveString("pdf_set"), "silent");
@@ -394,8 +396,13 @@ void GgfManager::perform_eft(const UserInterface& UI){
     WCsquared_trunc.Truncate(qcd_perturbative_order_int-2);
     //cout << "|C|^2 = " << WCsquared_trunc << endl;
     mydata.Add("WC^2_trunc",WCsquared_trunc.AddUp(), "silent");
+    
+    mydata.Add("n2",Eta.term_of_order(2), "silent");
+    if (qcd_perturbative_order_int > 2) mydata.Add("n3",Eta.term_of_order(3), "silent");
+    if (qcd_perturbative_order_int > 3) mydata.Add("n4",Eta.term_of_order(4), "silent");
+    if (qcd_perturbative_order_int > 4) mydata.Add("n5",Eta.term_of_order(5), "silent");
     mydata.Add("n",Eta.AddUp(), "silent");
-    //mydata.Add("Cbern",pow(10,4.0) * pow( eft.AsOverPi() / 3 , 2.0) * WCsquared_trunc.AddUp() , "silent"    );
+
     mydata.Add("sigma factorized",eft_sigma_fac, "silent");
     //mydata.Add("sigma recalc",eft_recalc.AddUp());
     
@@ -404,8 +411,8 @@ void GgfManager::perform_eft(const UserInterface& UI){
         output << eft << endl;
     
     //IMPORTANT: setting _eft_input which is necessary for resummation
-    _eft_input = eft.GetInput();
-    
+    _tr_input = new InputParametersForThresRes;
+    _tr_input->Configure(*(eft.GetInput()));
     
     
 }
@@ -740,6 +747,11 @@ void GgfManager::perform_exact_nlo_with_selected_quarks(const UserInterface& UI,
                    exact_nlo->QCDCorrections().AddUp(),verbose_level);
     }
     
+    
+    if (UI.giveBool("with_eft_channel_info")) {cout << *exact_nlo << endl;}
+
+    
+    
 }
 
 
@@ -751,22 +763,27 @@ void GgfManager::perform_catani_resummation(const UserInterface& UI){
     
     
     const string grid_directory="./grids/";
-    if (_eft_input == NULL) {
+    if (_tr_input == NULL) {
         cout << "Error: attempted to run resummation without previously having run eft." << endl;
         exit(0);
     }
+    cout << __PRETTY_FUNCTION__ << " before  InputParametersForThresRes new" << endl;
     //: threshold resummation
-    ThresholdResummation trs(UI,grid_directory,_eft_input);
+    
+    cout << __PRETTY_FUNCTION__ << " after  InputParametersForThresRes configure" << endl;
+    ThresholdResummation trs(UI,grid_directory,_tr_input);
+    cout << __PRETTY_FUNCTION__ << " after  ThresholdResummation constructure" << endl;
     //unsigned int log_order = 3; //: 2 is NNLL
     //unsigned int matchingOrder = 3;//: matching to NNLO fixed order
     bool pi2resummation = false;
+    
     ResultPair resumation_N3LL_correction(
                     trs.ResummationCorrection(UI.giveInt("resummation_log_order"),
                     UI.giveInt("resummation_matching_order"),
                     pi2resummation)
                 ,1e-6);
     
-    ThresholdResummation my_resummation(UI,grid_directory,_eft_input);
+    //ThresholdResummation my_resummation(UI,grid_directory,_eft_input);
     ResultPair deltaResLO   = ResultPair(trs.ResummationCorrection(0,0,false),0.0);
     ResultPair deltaResN1LO = ResultPair(trs.ResummationCorrection(1,1,false),0.0);
     ResultPair deltaResN2LO = ResultPair(trs.ResummationCorrection(2,2,false),0.0);

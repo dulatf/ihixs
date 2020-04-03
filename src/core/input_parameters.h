@@ -52,5 +52,21 @@ class InputParameters{
     double _lambda;
 };
 
+class InputParametersForThresRes{
+ public:
+    void Configure(const InputParameters& IP);
+    double muf() {return _muf;}
 
+ public:
+    WilsonCoefficient _wc;
+    double _prefactor;
+    double _tau;
+    double _mur;
+    double _muf;
+    double _as_over_pi;
+    double _log_muf_over_mh_sq;
+    double _log_mur_over_muf_sq;
+ private:
+
+};
 #endif  // SRC_CORE_INPUT_PARAMETERS_H_
