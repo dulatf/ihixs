@@ -575,7 +575,14 @@ void GgfManager::perform_as_error(const UserInterface& UI) {
         UIlocalminus.SetOption("pdf_member",101);
         as_error_available_for_this_pdf = true;
     }
-    
+    if (UI.giveString("pdf_set")=="PDF4LHC21_40") {
+        UIlocalplus.SetOption("pdf_set","PDF4LHC21_40_pdfas");
+        UIlocalplus.SetOption("pdf_member",42);
+        UIlocalminus.SetOption("pdf_set","PDF4LHC21_40_pdfas");
+        UIlocalminus.SetOption("pdf_member",41);
+        as_error_available_for_this_pdf = true;
+    }
+
     if (as_error_available_for_this_pdf) {
         InclusiveHiggsEFT* eft_asplus = new InclusiveHiggsEFT(UIlocalplus);
         cout << "Computing eft cross section with a_s + delta(a_s) " << endl;
